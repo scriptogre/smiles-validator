@@ -34,12 +34,26 @@ jobs:
         run: uv build
 
       - name: Generate changelog
-        uses: git-chglog/git-chglog-action@v0.1.1
         id: changelog
-        with:
-          template: keepachangelog
-          latestTag: true
-          outputFormat: markdown
+        run: |
+          # Get the previous tag
+          PREV_TAG=$(git describe --tags --abbrev=0)
+          
+          # Generate changelog
+          echo "## [${{ github.ref_name }}](${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}) ($(date +%Y-%m-%d))" > changelog.md
+          echo "" >> changelog.md
+          echo "### Changes" >> changelog.md
+          echo "" >> changelog.md
+          
+          # Get commits between tags
+          git log --pretty=format:'- %s (%h)' $PREV_TAG..${{ github.ref_name }} >> changelog.md
+          
+          # Add PyPI link
+          echo "" >> changelog.md
+          echo "Published to PyPI: https://pypi.org/project/smiles-validator/${{ github.ref_name }}/" >> changelog.md
+          
+          # Set output
+          echo "body=$(cat changelog.md)" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
