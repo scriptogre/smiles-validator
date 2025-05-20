@@ -1,18 +1,23 @@
-name: 📦 Release & Publish
+name: Release and Publish to PyPI
 
 on:
   push:
     tags:
-      - v*.*.*
+      - 'v*'
+
+permissions:
+  contents: write
 
 jobs:
   release:
+    name: Create Release and Publish
     runs-on: ubuntu-latest
     environment:
       name: pypi
       url: https://pypi.org/p/smiles-validator
     permissions:
       id-token: write
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -59,8 +64,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
           body: ${{ steps.changelog.outputs.body }}
           draft: false
           prerelease: false
