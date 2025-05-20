@@ -52,7 +52,8 @@ jobs:
           echo "Published to PyPI: https://pypi.org/project/smiles-validator/${{ github.ref_name }}/" >> changelog.md
           
           # Set output
-          echo "body=$(cat changelog.md)" >> $GITHUB_OUTPUT
+          BODY=$(cat changelog.md | tr -d '\n' | sed 's/\s\+/ /g')
+          echo "body=$BODY" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
