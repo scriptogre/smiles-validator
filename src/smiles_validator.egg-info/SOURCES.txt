@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+src/smiles_validator/__init__.py
+src/smiles_validator/validator.py
+src/smiles_validator.egg-info/PKG-INFO
+src/smiles_validator.egg-info/SOURCES.txt
+src/smiles_validator.egg-info/dependency_links.txt
+src/smiles_validator.egg-info/requires.txt
+src/smiles_validator.egg-info/top_level.txt

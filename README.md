@@ -1,0 +1,82 @@
+# Smiles-Validator
+
+[![Test Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg)](https://github.com/scriptogre/smiles-validator)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![PyPI version](https://img.shields.io/pypi/v/smiles-validator.svg)](https://pypi.org/project/smiles-validator/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/scriptogre/smiles-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/scriptogre/smiles-validator/actions)
+
+Lightweight Pydantic v2 validator for RDKit SMILES strings: validates, sanitizes, and optionally returns canonical or original input.
+
+## Install
+
+```bash
+pip install smiles-validator
+```
+
+> Requires Python ≥ 3.10 · Pydantic v2 · RDKit 2024.9+
+
+## Usage
+
+```python
+from pydantic import BaseModel
+from typing import Annotated
+from smiles_validator import SmilesText, SmilesValidator
+
+class Model(BaseModel):
+    # Default: Canonical SMILES
+    canonical: SmilesText
+    # Keep original input
+    original: Annotated[str, SmilesValidator(keep_original=True)]
+
+m = Model(
+    canonical="C1=CC=CC=C1",
+    original="C1=CC=CC=C1"
+)
+
+print(m.canonical)  # => "c1ccccc1"
+print(m.original)   # => "C1=CC=CC=C1"
+```
+
+## Features
+
+- 🚀 Fast SMILES validation using RDKit
+- 🔄 Canonicalization with optional original input preservation
+- 📦 Pydantic v2 integration
+- 📊 Comprehensive test coverage
+- 🧪 CI/CD with multiple Python versions
+- 📚 Well-documented API
+
+## API
+
+- `SmilesText`: alias for `Annotated[str, SmilesValidator()]` (canonical by default).
+- `SmilesValidator(keep_original: bool = False)`: set `keep_original=True` to return the exact input after validation.
+
+Both options parse with `Chem.MolFromSmiles(..., sanitize=False)`, sanitize (using RDKit's default sanitization), and cache results (up to 4096 entries). Canonical output uses `Chem.MolToSmiles(mol, canonical=True)`.
+
+## Development
+
+To contribute:
+
+```bash
+# Install dependencies
+uv sync --locked --all-extras --dev
+
+# Run tests
+just test
+
+# Run linting
+just check
+
+# Run formatting
+just format
+```
+
+## License
+
+MIT · [GitHub](https://github.com/scriptogre/smiles-validator)
+
+## Acknowledgements
+
+- Built with [RDKit](https://github.com/rdkit/rdkit) for chemical structure handling
+- Uses [Pydantic v2](https://github.com/pydantic/pydantic) for validation integration

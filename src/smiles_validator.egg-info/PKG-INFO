@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: smiles-validator
+Version: 0.1.1
+Summary: Lightweight Pydantic v2 validator for RDKit SMILES: sanitizes, canonicalizes & caches results
+Author-email: Christian Tanul <contact@christiantanul.com>
+License: MIT
+Project-URL: Homepage, https://github.com/scriptogre/smiles-validator
+Project-URL: Repository, https://github.com/scriptogre/smiles-validator.git
+Project-URL: Issues, https://github.com/scriptogre/smiles-validator/issues
+Keywords: SMILES,RDKit,Pydantic,chemoinformatics,validation
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: pydantic<3.0,>=2.11
+Requires-Dist: rdkit<2025.0,>=2024.9

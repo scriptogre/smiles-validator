@@ -1,0 +1,46 @@
+[project]
+name = "smiles-validator"
+version = "0.1.2"
+description = "Lightweight Pydantic v2 validator for RDKit SMILES: sanitizes, canonicalizes & caches results"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Christian Tanul", email = "contact@christiantanul.com" }
+]
+keywords = ["SMILES", "RDKit", "Pydantic", "chemoinformatics", "validation"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Topic :: Scientific/Engineering :: Chemistry",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: OS Independent"
+]
+dependencies = [
+  "pydantic>=2.11,<3.0",
+  "rdkit>=2024.9,<2025.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.10",
+]
+
+[project.urls]
+Homepage = "https://github.com/scriptogre/smiles-validator"
+Repository = "https://github.com/scriptogre/smiles-validator.git"
+Issues = "https://github.com/scriptogre/smiles-validator/issues"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+pythonpath = ["src"]
+
+[tool.uv.sources]
+smiles-validator = { workspace = true }
