@@ -14,12 +14,6 @@ jobs:
   release:
     name: Create Release and Publish
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/smiles-validator
-    permissions:
-      id-token: write
-      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -38,42 +32,6 @@ jobs:
       - name: Build package
         run: uv build
 
-      - name: Generate changelog
-        id: changelog
-        uses: dorny/paths-filter@v2
-        with:
-          filters: |
-            changes:
-              - '**'
-              - '!README.md'
-              - '!pyproject.toml'
-          inputs: |
-            tag_name: ${{ github.ref_name }}
-            previous_tag: ${{ github.event.before }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Format changelog
-        run: |
-          # Get the previous tag
-          PREV_TAG=$(git describe --tags --abbrev=0)
-          # Get the commits between the previous tag and HEAD
-          COMMITS=$(git log --pretty=format:'- %s' ${PREV_TAG}..HEAD)
-          DATE=$(date +%Y-%m-%d)
-          # Format the changelog
-          echo "## [${{ github.ref_name }}](https://github.com/scriptogre/smiles-validator/releases/tag/${{ github.ref_name }}) (${DATE})" > changelog.md
-          echo "### Changes" >> changelog.md
-          echo "${COMMITS}" >> changelog.md
-          echo "" >> changelog.md
-          echo "### Links" >> changelog.md
-          echo "- [GitHub Release](https://github.com/scriptogre/smiles-validator/releases/tag/${{ github.ref_name }})" >> changelog.md
-          echo "- [PyPI Package](https://pypi.org/project/smiles-validator/${{ github.ref_name }}/)
-          # Format for GitHub Actions output
-          BODY=$(cat changelog.md | tr -d '\n' | sed 's/  */ /g')
-          echo "body=$BODY" >> $GITHUB_OUTPUT
-          # Clean up the changelog file
-          rm changelog.md
-
       - name: Create GitHub Release
         uses: comnoco/create-release-action@v2.0.5
         env:
@@ -81,9 +39,13 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           release_name: Release ${{ github.ref_name }}
-          body: ${{ steps.changelog.outputs.body }}
+          body: "Release ${{ github.ref_name }}\n\nPublished to PyPI: https://pypi.org/project/smiles-validator/${{ github.ref_name }}/"
           draft: false
           prerelease: false
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          repository-url: https://pypi.org/
+
