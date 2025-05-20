@@ -1,4 +1,4 @@
-name: 📦 Publish to PyPI
+name: 📦 Release & Publish
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - v*.*.*
 
 jobs:
-  publish-to-pypi:
+  release:
+    needs: ci
     runs-on: ubuntu-latest
     environment:
       name: pypi
