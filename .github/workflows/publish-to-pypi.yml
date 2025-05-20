@@ -32,7 +32,17 @@ jobs:
       - name: Build package
         run: uv build
 
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Generate changelog
+        uses: git-chglog/git-chglog-action@v0.1.1
+        id: changelog
         with:
-          attestations: true
+          template: keepachangelog
+          latestTag: true
+          outputFormat: markdown
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.body }}
