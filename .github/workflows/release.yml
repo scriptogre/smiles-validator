@@ -1,4 +1,4 @@
-name: Release and Publish to PyPI
+name: 📦 Release and Publish to PyPI
 
 on:
   push:
@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+  packages: write
 
 jobs:
   release:
@@ -41,23 +43,19 @@ jobs:
         run: |
           # Get the previous tag
           PREV_TAG=$(git describe --tags --abbrev=0)
-          
-          # Generate changelog
-          echo "## [${{ github.ref_name }}](${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}) ($(date +%Y-%m-%d))" > changelog.md
-          echo "" >> changelog.md
+          # Get the commits between the previous tag and HEAD
+          COMMITS=$(git log --pretty=format:'- %s' ${PREV_TAG}..HEAD)
+          DATE=$(date +%Y-%m-%d)
+          # Format the changelog
+          echo "## [${{ github.ref_name }}](https://github.com/scriptogre/smiles-validator/releases/tag/${{ github.ref_name }}) (${DATE})" > changelog.md
           echo "### Changes" >> changelog.md
-          echo "" >> changelog.md
-          
-          # Get commits between tags
-          git log --pretty=format:'- %s (%h)' $PREV_TAG..${{ github.ref_name }} >> changelog.md
-          
-          # Add PyPI link
-          echo "" >> changelog.md
+          echo "${COMMITS}" >> changelog.md
           echo "Published to PyPI: https://pypi.org/project/smiles-validator/${{ github.ref_name }}/" >> changelog.md
-          
-          # Set output
-          BODY=$(cat changelog.md | tr -d '\n' | sed 's/\s\+/ /g')
+          # Format for GitHub Actions output
+          BODY=$(cat changelog.md | tr -d '\n' | sed 's/  */ /g')
           echo "body=$BODY" >> $GITHUB_OUTPUT
+          # Clean up the changelog file
+          rm changelog.md
 
       - name: Create GitHub Release
         uses: comnoco/create-release-action@v2.0.5
