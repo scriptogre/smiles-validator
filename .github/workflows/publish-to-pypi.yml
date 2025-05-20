@@ -8,6 +8,11 @@ on:
 jobs:
   publish-to-pypi:
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/smiles-validator
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,6 +24,7 @@ jobs:
           version: "0.7.6"
           python-version: "3.12"
           enable-cache: true
+          cache-dependency-glob: '**/uv.lock'
 
       - name: Install dependencies
         run: uv sync --all-extras --dev
@@ -29,4 +35,4 @@ jobs:
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          attestations: true
