@@ -74,7 +74,7 @@ just format
 
 ## License
 
-MIT · [GitHub](https://github.com/scriptogre/smiles-validator)
+[MIT License](LICENSE) · [GitHub](https://github.com/scriptogre/smiles-validator)
 
 ## Acknowledgements
 
