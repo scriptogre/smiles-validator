@@ -7,7 +7,7 @@
 [![CI](https://github.com/scriptogre/smiles-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/scriptogre/smiles-validator/actions)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-A Pydantic validator for RDKit SMILES strings that validates, sanitizes, and optionally returns either canonical or original input.
+A Pydantic validator for SMILES chemical notation that validates, sanitizes, and optionally returns either canonical or original input.
 
 ## Install
 
