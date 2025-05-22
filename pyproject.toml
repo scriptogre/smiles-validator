@@ -3,7 +3,7 @@ name = "smiles-validator"
 version = "0.1.17"
 description = "Pydantic validator for SMILES chemical notation: validates, sanitizes, and optionally returns canonical or original input"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 license = { text = "MIT" }
 authors = [
     { name = "Christian Tanul", email = "contact@christiantanul.com" }
@@ -14,7 +14,6 @@ classifiers = [
   "Intended Audience :: Developers",
   "Topic :: Scientific/Engineering :: Chemistry",
   "License :: OSI Approved :: MIT License",
-  "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Operating System :: OS Independent"
