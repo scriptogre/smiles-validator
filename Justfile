@@ -1,4 +1,4 @@
-# Run all checks and tests
+# Run all checks, formatting and tests
 default: check format test
 
 
@@ -6,9 +6,11 @@ default: check format test
 check:
     uv tool run ruff check .
 
+
 # Run Ruff formatting
 format:
     uv tool run ruff format .
+
 
 # Run tests with coverage
 test:
