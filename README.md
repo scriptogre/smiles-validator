@@ -1,7 +1,7 @@
 # Smiles-Validator
 
 [![Test Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg)](https://github.com/scriptogre/smiles-validator)
-[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
 [![PyPI version](https://img.shields.io/pypi/v/smiles-validator.svg)](https://pypi.org/project/smiles-validator/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/scriptogre/smiles-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/scriptogre/smiles-validator/actions)
@@ -15,7 +15,7 @@ A Pydantic validator for SMILES chemical notation that validates, sanitizes, and
 pip install smiles-validator
 ```
 
-> Requires Python ≥ 3.10 · Pydantic v2 · RDKit 2024.9+
+> Requires Python ≥ 3.12 · Pydantic v2 · RDKit 2024.9+
 
 ## Usage
 
@@ -77,25 +77,6 @@ just check
 # Run formatting
 just format
 ```
-
-## Releasing New Versions
-
-This repository uses GitHub Actions for automated releases and PyPI publishing. To create a new release:
-
-1. Create a new tag in the format `vX.Y.Z`:
-```bash
-git tag v1.0.0
-```
-
-2. Push the tag to GitHub:
-```bash
-git push --tags
-```
-
-The GitHub Actions workflow will automatically:
-- Build the package
-- Create a GitHub release
-- Publish to PyPI
 
 ## License
 
