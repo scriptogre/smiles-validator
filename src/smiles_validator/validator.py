@@ -85,5 +85,5 @@ class SmilesValidator:
         return core_schema.with_info_plain_validator_function(validate_smiles)
 
 
-# Alias for convenience
-SmilesText = Annotated[str, SmilesValidator(keep_original=False)]
+# Type alias for SMILES strings
+type SmilesText = Annotated[str, SmilesValidator(keep_original=False)]
