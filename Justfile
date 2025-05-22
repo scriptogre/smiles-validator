@@ -1,5 +1,5 @@
 # Run all checks and tests
-default: check test
+default: check format test
 
 
 # Run Ruff linting
